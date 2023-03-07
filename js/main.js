@@ -116,7 +116,49 @@ function creatQuestion(i) {
 
     // inserir a alternativa na tela
     answersBox.appendChild(answerTemplate);
+
+    // enevento de click no botão
+    answerTemplate.addEventListener("click", function () {
+      checkAnswer(this);
+    });
   });
+
+  actualQuestion++;
+}
+
+// Verificando resposta do usuário
+function checkAnswer(btn) {
+  const buttons = answersBox.querySelectorAll("button");
+
+  buttons.forEach(function (button) {
+    if (button.getAttribute("correct-answer") === "true") {
+      button.classList.add("correct-answer");
+
+      if (btn === button) {
+        // incremento dos pontos
+        points++;
+      }
+    } else {
+      button.classList.add("wrong-answer");
+    }
+  });
+
+  nextQuestion();
+}
+
+// Exibie a próxima pergunta no quizz
+function nextQuestion() {
+  // timer para usuário ver as respostas
+  setTimeout(function () {
+    // verifica se ainda há perguntas
+    if (actualQuestion >= questions.length) {
+      // apresenta a msg de sucesso
+      showSucccessMessage();
+      return;
+    }
+
+    creatQuestion(actualQuestion);
+  }, 1000);
 }
 
 // inicia quiz

@@ -139,6 +139,7 @@ body {
   color: #fff;
   padding: 2px 8px;
   margin-right: 8px;
+  text-transform: uppercase;
 }
 
 #quiz-container .wrong-answer,
