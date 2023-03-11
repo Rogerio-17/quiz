@@ -154,6 +154,139 @@ body {
   color: #fff;
 }
 
+/* PAGINA SELECT */
+#text-container {
+  margin-bottom: 20px;
+}
+
+#score-container-select {
+  background-color: #cddde8;
+  color: #000;
+  text-align: center;
+  width: 300px;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+#restart-select {
+  background: #e78230;
+  display: block;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  padding: 14px 16px;
+  border-radius: 25px;
+  font-size: 16px;
+  border: 2px solid transparent;
+  margin: 15px auto;
+  cursor: pointer;
+  width: 240px;
+
+  transition: 0.3s;
+}
+
+#restart-select:hover {
+  background: transparent;
+  border: 2px solid #e78230;
+  color: #e78230;
+}
+
+/* Pagina de adicionar perguntas */
+.voltar {
+  margin-top: 20px;
+}
+#volta img {
+  width: 50px;
+  margin-left: 20%;
+}
+
+#score-container-add .title {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+#score-container-add {
+  background-color: #cddde8;
+  color: #000;
+  width: 500px;
+  margin: 15px auto;
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+#score-container-add .alternativas {
+  margin-bottom: 10px;
+}
+
+#score-container-add textarea {
+  border: none;
+  box-shadow: 0 0 0 0;
+  border: 0 none;
+  outline: 0;
+  width: 100%;
+  height: 70px;
+  padding-left: 10px;
+  border-radius: 8px;
+  resize: none;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding: 10px;
+  font-size: 15px;
+}
+
+#score-container-add .alternativas input {
+  width: 375px;
+  margin-top: 5px;
+  margin-left: 10px;
+  height: 35px;
+  border: none;
+  box-shadow: 0 0 0 0;
+  border: 0 none;
+  outline: 0;
+  padding-left: 10px;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+#score-container-add .alternativa_correta select {
+  width: 100px;
+  margin-top: 5px;
+  margin-left: 10px;
+  height: 35px;
+  border: none;
+  box-shadow: 0 0 0 0;
+  border: 0 none;
+  outline: 0;
+  padding-left: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+#env_pergunta {
+  background: #e78230;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  padding: 14px 16px;
+  border-radius: 25px;
+  font-size: 16px;
+  margin-top: 10px;
+  border: 2px solid transparent;
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+#env_pergunta:hover {
+  background: transparent;
+  border: 2px solid #e78230;
+  color: #e78230;
+}
+
 /* RESPONSIVO */
 @media (max-width: 450px) {
   #quiz-container {

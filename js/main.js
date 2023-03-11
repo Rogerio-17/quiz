@@ -8,6 +8,18 @@ const letters = ["a", "b", "c", "d"];
 let points = 0;
 let actualQuestion = 0;
 
+fetch("http://localhost:3000/perguntas")
+  .then((respostap) => {
+    return respostap.json();
+  })
+  .then((dados) => {
+    let dado = dados;
+
+    dado.map((item) => {
+      console.log(item);
+    });
+  });
+
 // Perguntas
 const questions = [
   {

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>Adicionar pergunta</title>
+  </head>
+  <body>
+    <h1 id="main-title">Quizz</h1>
+    <div class="voltar">
+      <a href="select.html" id="volta"
+        ><img src="/img/icons8-esquerda-50.png" alt=""
+      /></a>
+    </div>
+    <form id="score-container-add" onsubmit="cadastrarPergunta()">
+      <h3 class="title">Adicione informações sobre as perguntas</h3>
+
+      <div class="pergunta">
+        <label for="">Informe qual pergunta você deseja cadastrar: </label>
+        <textarea name="questao" id="questao"></textarea>
+      </div>
+
+      <div class="alternativas">
+        <label for="">Opçao A:</label>
+        <input type="text" name="opcaoA" id="opcaoA" />
+      </div>
+
+      <div class="alternativas">
+        <label for="">Opçao B:</label>
+        <input type="text" name="opcaoB" id="opcaoB" />
+      </div>
+
+      <div class="alternativas">
+        <label for="">Opçao C:</label>
+        <input type="text" name="opcaoC" id="opcaoC" />
+      </div>
+
+      <div class="alternativas">
+        <label for="">Opçao D:</label>
+        <input type="text" name="opcaoD" id="opcaoD" />
+      </div>
+
+      <div class="alternativa_correta">
+        <label for="">Opçao correta:</label>
+        <select name="opcaoCorreta" id="opcaoCorreta">
+          <option value="a">A</option>
+          <option value="b">B</option>
+          <option value="c">C</option>
+          <option value="d">D</option>
+        </select>
+      </div>
+
+      <button type="submit" id="env_pergunta">Enviar pergunta</button>
+    </form>
+
+    <script src="/js/req.js"></script>
+  </body>
+</html>
