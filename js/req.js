@@ -5,10 +5,13 @@ function enviaPergunta(url, body) {
   request.send(JSON.stringify(body));
 
   request.onload = function () {
-    console.log(this.responseText);
+    event.preventDefault();
+    if (this.responseText != "") {
+      alert("Os dados foram salvos com sucesso!");
+      limpaCampos();
+    }
   };
 
-  limpaCampos();
   return request.responseText;
 }
 
@@ -18,7 +21,6 @@ function limpaCampos() {
   document.querySelector("#opcaoB").value = "";
   document.querySelector("#opcaoC").value = "";
   document.querySelector("#opcaoD").value = "";
-  document.querySelector("#opcaoCorreta").value = "";
 }
 
 function cadastrarPergunta() {
