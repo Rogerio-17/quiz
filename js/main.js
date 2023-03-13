@@ -17,80 +17,12 @@ fetch("http://localhost:3000/perguntas")
 
     dado.map((item) => {
       console.log(item);
+      // Perguntas
+      const questions = item;
     });
   });
 
-// Perguntas
-const questions = [
-  {
-    question: "PHP foi desenvolvido para qual fim?",
-    answers: [
-      {
-        answer: "back-end",
-        correct: true,
-      },
-      {
-        answer: "front-end",
-        correct: false,
-      },
-      {
-        answer: "Sistema operacional",
-        correct: false,
-      },
-      {
-        answer: "Banco de dados",
-        correct: false,
-      },
-    ],
-  },
-  {
-    question: "Uma forma de declarar variável em JavaScript:",
-    answers: [
-      {
-        answer: "$var",
-        correct: false,
-      },
-      {
-        answer: "var",
-        correct: true,
-      },
-      {
-        answer: "@var",
-        correct: false,
-      },
-      {
-        answer: "#let",
-        correct: false,
-      },
-    ],
-  },
-  {
-    question: "Qual o seletor de id no CSS?",
-    answers: [
-      {
-        answer: "#",
-        correct: true,
-      },
-      {
-        answer: ".",
-        correct: false,
-      },
-      {
-        answer: "@",
-        correct: false,
-      },
-      {
-        answer: "/",
-        correct: false,
-      },
-    ],
-  },
-];
-
 //SUBSTITUIÇÃO DO QUIZ PARA A PRIMEIRA PERGUNTA
-function init() {
-  creatQuestion(0);
-}
 
 //Cria uma pergunta
 function creatQuestion(i) {
@@ -104,7 +36,9 @@ function creatQuestion(i) {
   const questionText = quizContainer.querySelector("#question-text");
   const questionNumber = quizContainer.querySelector("#question-number");
 
-  questionText.innerHTML = questions[i].question;
+  console.log(questions);
+  questionText.innerHTML = questions;
+
   questionNumber.innerHTML = i + 1;
 
   //insere as alternativas
@@ -211,6 +145,3 @@ restartBtn.addEventListener("click", function () {
   hideOrShowQuizz();
   init();
 });
-
-// inicia quiz
-init();
