@@ -15,97 +15,70 @@ fetch("http://localhost:3000/perguntas")
   .then((dados) => {
     let dado = dados;
 
-    dado.map((item) => {
-      console.log(item);
-      // Perguntas
-      const questions = item;
+    var questions = dado.map((item) => {
+      return Object.keys(item).map(function (key) {
+        return item[key];
+      });
     });
-  });
 
-//SUBSTITUIÇÃO DO QUIZ PARA A PRIMEIRA PERGUNTA
+    let count = 0;
+    function pergunta() {
+      let questionArray = questions[count];
+      let pergunta = questionArray[1];
+      let a = questionArray[2];
+      let b = questionArray[3];
+      let c = questionArray[4];
+      let d = questionArray[5];
+      let correct = questionArray[6];
+      let i = 0;
 
-//Cria uma pergunta
-function creatQuestion(i) {
-  //limpar questão anterior
-  const oldButtons = answersBox.querySelectorAll("button");
-  oldButtons.forEach(function (btn) {
-    btn.remove();
-  });
+      console.log(c);
+      // Numero da pergunta e pergunta
+      const questionText = quizContainer.querySelector("#question-text");
+      const questionNumber = quizContainer.querySelector("#question-number");
+      questionText.innerHTML = pergunta;
+      questionNumber.innerHTML = i + 1;
 
-  //alterar o texto da pegunta
-  const questionText = quizContainer.querySelector("#question-text");
-  const questionNumber = quizContainer.querySelector("#question-number");
+      const answerTemplate = document.querySelector("#answers-box");
 
-  console.log(questions);
-  questionText.innerHTML = questions;
+      //seleciona alternativa
+      let A = answerTemplate.querySelector("#a");
+      let B = answerTemplate.querySelector("#b");
+      let C = answerTemplate.querySelector("#c");
+      let D = answerTemplate.querySelector("#d");
 
-  questionNumber.innerHTML = i + 1;
+      //Alt A
+      let letterBtnA = A.querySelector(".btn-letter");
+      let answerTextA = A.querySelector(".question-answer");
+      //Alt B
+      let letterBtnB = B.querySelector(".btn-letter");
+      let answerTextB = B.querySelector(".question-answer");
+      //Alt C
+      let letterBtnC = C.querySelector(".btn-letter");
+      let answerTextC = C.querySelector(".question-answer");
+      //Alt D
+      let letterBtnD = D.querySelector(".btn-letter");
+      let answerTextD = D.querySelector(".question-answer");
 
-  //insere as alternativas
-  questions[i].answers.forEach(function (answer, i) {
-    //Cria tempalte do botão do quiz
-    const answerTemplate = document
-      .querySelector(".answer-template")
-      .cloneNode(true);
+      // A
+      letterBtnA.innerHTML = letters[0];
+      answerTextA.innerHTML = a;
 
-    const letterBtn = answerTemplate.querySelector(".btn-letter");
-    const answerText = answerTemplate.querySelector(".question-answer");
+      // B
+      letterBtnB.innerHTML = letters[1];
+      answerTextB.innerHTML = b;
 
-    letterBtn.innerHTML = letters[i];
-    answerText.innerHTML = answer["answer"];
+      //C
+      letterBtnC.innerHTML = letters[2];
+      answerTextC.innerHTML = c;
 
-    answerTemplate.setAttribute("correct-answer", answer["correct"]);
-
-    //remover hide e template class
-    answerTemplate.classList.remove("hide");
-    answerTemplate.classList.remove("answer-template");
-
-    // inserir a alternativa na tela
-    answersBox.appendChild(answerTemplate);
-
-    // enevento de click no botão
-    answerTemplate.addEventListener("click", function () {
-      checkAnswer(this);
-    });
-  });
-
-  actualQuestion++;
-}
-
-// Verificando resposta do usuário
-function checkAnswer(btn) {
-  const buttons = answersBox.querySelectorAll("button");
-
-  buttons.forEach(function (button) {
-    if (button.getAttribute("correct-answer") === "true") {
-      button.classList.add("correct-answer");
-
-      if (btn === button) {
-        // incremento dos pontos
-        points++;
-      }
-    } else {
-      button.classList.add("wrong-answer");
-    }
-  });
-
-  nextQuestion();
-}
-
-// Exibie a próxima pergunta no quizz
-function nextQuestion() {
-  // timer para usuário ver as respostas
-  setTimeout(function () {
-    // verifica se ainda há perguntas
-    if (actualQuestion >= questions.length) {
-      // apresenta a msg de sucesso
-      showSucccessMessage();
-      return;
+      //D
+      letterBtnD.innerHTML = letters[3];
+      answerTextD.innerHTML = d;
     }
 
-    creatQuestion(actualQuestion);
-  }, 1000);
-}
+    pergunta();
+  });
 
 // Exibe a tela final
 function showSucccessMessage() {
