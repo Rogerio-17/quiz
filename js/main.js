@@ -7,6 +7,14 @@ const scoreContainer = document.querySelector("#score-container");
 const letters = ["a", "b", "c", "d"];
 let points = 0;
 let actualQuestion = 0;
+let count = 0;
+
+const answerTemplate = document.querySelector("#answers-box");
+
+let A = answerTemplate.querySelector("#a");
+let B = answerTemplate.querySelector("#b");
+let C = answerTemplate.querySelector("#c");
+let D = answerTemplate.querySelector("#d");
 
 fetch("http://localhost:3000/perguntas")
   .then((respostap) => {
@@ -21,7 +29,6 @@ fetch("http://localhost:3000/perguntas")
       });
     });
 
-    let count = 0;
     function pergunta() {
       let questionArray = questions[count];
       let pergunta = questionArray[1];
@@ -30,22 +37,51 @@ fetch("http://localhost:3000/perguntas")
       let c = questionArray[4];
       let d = questionArray[5];
       let correct = questionArray[6];
-      let i = 0;
 
-      console.log(c);
       // Numero da pergunta e pergunta
       const questionText = quizContainer.querySelector("#question-text");
       const questionNumber = quizContainer.querySelector("#question-number");
       questionText.innerHTML = pergunta;
-      questionNumber.innerHTML = i + 1;
-
-      const answerTemplate = document.querySelector("#answers-box");
+      questionNumber.innerHTML = 1;
 
       //seleciona alternativa
-      let A = answerTemplate.querySelector("#a");
-      let B = answerTemplate.querySelector("#b");
-      let C = answerTemplate.querySelector("#c");
-      let D = answerTemplate.querySelector("#d");
+
+      //Verifica qual alternativa esta correta
+      answerTemplate.addEventListener("click", function () {
+        if (correct == "a") {
+          A.classList.add("correct-answer");
+          A.classList.remove("wrong-answer");
+        } else {
+          A.classList.add("wrong-answer");
+          A.classList.remove("correct-answer");
+        }
+
+        if (correct == "b") {
+          B.classList.add("correct-answer");
+          B.classList.remove("wrong-answer");
+        } else {
+          B.classList.add("wrong-answer");
+          B.classList.remove("correct-answer");
+        }
+
+        if (correct == "c") {
+          C.classList.add("correct-answer");
+          C.classList.remove("wrong-answer");
+        } else {
+          C.classList.add("wrong-answer");
+          C.classList.remove("correct-answer");
+        }
+
+        if (correct == "d") {
+          D.classList.add("correct-answer");
+          D.classList.remove("wrong-answer");
+        } else {
+          D.classList.add("wrong-answer");
+          D.classList.remove("correct-answer");
+        }
+
+        nextQuestion();
+      });
 
       //Alt A
       let letterBtnA = A.querySelector(".btn-letter");
@@ -75,9 +111,21 @@ fetch("http://localhost:3000/perguntas")
       //D
       letterBtnD.innerHTML = letters[3];
       answerTextD.innerHTML = d;
+
+      console.log(count);
     }
 
-    pergunta();
+    function nextQuestion() {
+      if (count === 0) {
+        pergunta();
+        console.log("passou aqui");
+      } else {
+        pergunta();
+        console.log("aqui");
+      }
+    }
+
+    nextQuestion();
   });
 
 // Exibe a tela final
