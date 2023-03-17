@@ -7,8 +7,7 @@ const scoreContainer = document.querySelector("#score-container");
 const letters = ["a", "b", "c", "d"];
 let points = 0;
 let actualQuestion = 0;
-let count = 0;
-
+let i = 0;
 const answerTemplate = document.querySelector("#answers-box");
 
 let A = answerTemplate.querySelector("#a");
@@ -30,24 +29,75 @@ fetch("http://localhost:3000/perguntas")
     });
 
     function pergunta() {
-      let questionArray = questions[count];
+      console.log(i);
+      let questionArray = questions[i];
       let pergunta = questionArray[1];
       let a = questionArray[2];
       let b = questionArray[3];
       let c = questionArray[4];
       let d = questionArray[5];
-      let correct = questionArray[6];
 
       // Numero da pergunta e pergunta
       const questionText = quizContainer.querySelector("#question-text");
       const questionNumber = quizContainer.querySelector("#question-number");
+      let n = i + 1;
+
       questionText.innerHTML = pergunta;
-      questionNumber.innerHTML = 1;
+      questionNumber.innerHTML = n;
 
       //seleciona alternativa
+      function clearClass() {
+        A.classList.remove("correct-answer");
+        A.classList.remove("wrong-answer");
 
-      //Verifica qual alternativa esta correta
+        B.classList.remove("correct-answer");
+        B.classList.remove("wrong-answer");
+
+        C.classList.remove("correct-answer");
+        C.classList.remove("wrong-answer");
+
+        D.classList.remove("correct-answer");
+        D.classList.remove("wrong-answer");
+      }
+
+      //Alt A
+      let letterBtnA = A.querySelector(".btn-letter");
+      let answerTextA = A.querySelector(".question-answer");
+      //Alt B
+      let letterBtnB = B.querySelector(".btn-letter");
+      let answerTextB = B.querySelector(".question-answer");
+      //Alt C
+      let letterBtnC = C.querySelector(".btn-letter");
+      let answerTextC = C.querySelector(".question-answer");
+      //Alt D
+      let letterBtnD = D.querySelector(".btn-letter");
+      let answerTextD = D.querySelector(".question-answer");
+
+      // A
+      letterBtnA.innerHTML = letters[0];
+      answerTextA.innerHTML = a;
+
+      // B
+      letterBtnB.innerHTML = letters[1];
+      answerTextB.innerHTML = b;
+
+      //C
+      letterBtnC.innerHTML = letters[2];
+      answerTextC.innerHTML = c;
+
+      //D
+      letterBtnD.innerHTML = letters[3];
+      answerTextD.innerHTML = d;
+
+      clearClass();
+      checkPer();
+    }
+
+    //Verifica qual alternativa esta correta
+    function checkPer() {
       answerTemplate.addEventListener("click", function () {
+        let questionArray = questions[i];
+        let correct = questionArray[6];
         if (correct == "a") {
           A.classList.add("correct-answer");
           A.classList.remove("wrong-answer");
@@ -80,52 +130,15 @@ fetch("http://localhost:3000/perguntas")
           D.classList.remove("correct-answer");
         }
 
-        nextQuestion();
+        let buttons = answerTemplate.querySelectorAll("button");
+
+        buttons.forEach(function (b) {
+          console.log(b.getAttribute("correct-answer"));
+        });
       });
-
-      //Alt A
-      let letterBtnA = A.querySelector(".btn-letter");
-      let answerTextA = A.querySelector(".question-answer");
-      //Alt B
-      let letterBtnB = B.querySelector(".btn-letter");
-      let answerTextB = B.querySelector(".question-answer");
-      //Alt C
-      let letterBtnC = C.querySelector(".btn-letter");
-      let answerTextC = C.querySelector(".question-answer");
-      //Alt D
-      let letterBtnD = D.querySelector(".btn-letter");
-      let answerTextD = D.querySelector(".question-answer");
-
-      // A
-      letterBtnA.innerHTML = letters[0];
-      answerTextA.innerHTML = a;
-
-      // B
-      letterBtnB.innerHTML = letters[1];
-      answerTextB.innerHTML = b;
-
-      //C
-      letterBtnC.innerHTML = letters[2];
-      answerTextC.innerHTML = c;
-
-      //D
-      letterBtnD.innerHTML = letters[3];
-      answerTextD.innerHTML = d;
-
-      console.log(count);
     }
 
-    function nextQuestion() {
-      if (count === 0) {
-        pergunta();
-        console.log("passou aqui");
-      } else {
-        pergunta();
-        console.log("aqui");
-      }
-    }
-
-    nextQuestion();
+    pergunta();
   });
 
 // Exibe a tela final
