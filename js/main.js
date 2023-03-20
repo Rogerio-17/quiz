@@ -129,53 +129,12 @@ fetch("http://localhost:3000/perguntas")
           D.classList.add("wrong-answer");
           D.classList.remove("correct-answer");
         }
-
-        let buttons = answerTemplate.querySelectorAll("button");
-
-        buttons.forEach(function (b) {
-          console.log(b.getAttribute("correct-answer"));
-        });
+        nextQuestion();
       });
     }
-
+    function nextQuestion() {
+      pergunta();
+      console.log("aqui");
+    }
     pergunta();
   });
-
-// Exibe a tela final
-function showSucccessMessage() {
-  hideOrShowQuizz();
-
-  // trocar dados da tela de sucesso
-
-  // calcular o score
-  const score = ((points / questions.length) * 100).toFixed(2);
-
-  const displayScore = document.querySelector("#display-score span");
-
-  displayScore.textContent = score.toString();
-
-  // alterar o número de perguntas corretas
-  const correctAnswers = document.querySelector("#correct-answers");
-  correctAnswers.textContent = points;
-
-  // alterar o total de perguntas
-  const totalQuestions = document.querySelector("#questions-qty");
-  totalQuestions.textContent = questions.length;
-}
-
-// Mostra ou esconde o score
-function hideOrShowQuizz() {
-  quizContainer.classList.toggle("hide");
-  scoreContainer.classList.toggle("hide");
-}
-
-// Reiniciar Quizz
-const restartBtn = document.querySelector("#restart");
-
-restartBtn.addEventListener("click", function () {
-  // zerar o jogo
-  actualQuestion = 0;
-  points = 0;
-  hideOrShowQuizz();
-  init();
-});
