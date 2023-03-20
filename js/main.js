@@ -129,12 +129,7 @@ fetch("http://localhost:3000/perguntas")
           D.classList.add("wrong-answer");
           D.classList.remove("correct-answer");
         }
-        nextQuestion();
       });
-    }
-    function nextQuestion() {
-      pergunta();
-      console.log("aqui");
     }
     pergunta();
   });
