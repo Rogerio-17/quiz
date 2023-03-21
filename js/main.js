@@ -7,7 +7,7 @@ const scoreContainer = document.querySelector("#score-container");
 const letters = ["a", "b", "c", "d"];
 let points = 0;
 let actualQuestion = 0;
-let i = 0;
+let count = 0;
 const answerTemplate = document.querySelector("#answers-box");
 
 let A = answerTemplate.querySelector("#a");
@@ -22,15 +22,18 @@ fetch("http://localhost:3000/perguntas")
   .then((dados) => {
     let dado = dados;
 
-    var questions = dado.map((item) => {
-      return Object.keys(item).map(function (key) {
-        return item[key];
+    let dadosPergunta = dado.map((item) => {
+      return item;
+    });
+
+    let arrPerguntas = dadosPergunta.map(function (i) {
+      return Object.keys(i).map(function (key) {
+        return i[key];
       });
     });
 
-    function pergunta() {
-      console.log(i);
-      let questionArray = questions[i];
+    function pergunta(i) {
+      let questionArray = arrPerguntas[i];
       let pergunta = questionArray[1];
       let a = questionArray[2];
       let b = questionArray[3];
@@ -90,46 +93,51 @@ fetch("http://localhost:3000/perguntas")
       answerTextD.innerHTML = d;
 
       clearClass();
-      checkPer();
     }
+    //Verifica qual alternativa esta correta e passa para proxima pergunta
+    answerTemplate.addEventListener("click", function checkPer() {
+      let questionArray = arrPerguntas[count];
+      let correct = questionArray[6];
+      if (correct == "a") {
+        A.classList.add("correct-answer");
+        A.classList.remove("wrong-answer");
+      } else {
+        A.classList.add("wrong-answer");
+        A.classList.remove("correct-answer");
+      }
 
-    //Verifica qual alternativa esta correta
-    function checkPer() {
-      answerTemplate.addEventListener("click", function () {
-        let questionArray = questions[i];
-        let correct = questionArray[6];
-        if (correct == "a") {
-          A.classList.add("correct-answer");
-          A.classList.remove("wrong-answer");
-        } else {
-          A.classList.add("wrong-answer");
-          A.classList.remove("correct-answer");
-        }
+      if (correct == "b") {
+        B.classList.add("correct-answer");
+        B.classList.remove("wrong-answer");
+      } else {
+        B.classList.add("wrong-answer");
+        B.classList.remove("correct-answer");
+      }
 
-        if (correct == "b") {
-          B.classList.add("correct-answer");
-          B.classList.remove("wrong-answer");
-        } else {
-          B.classList.add("wrong-answer");
-          B.classList.remove("correct-answer");
-        }
+      if (correct == "c") {
+        C.classList.add("correct-answer");
+        C.classList.remove("wrong-answer");
+      } else {
+        C.classList.add("wrong-answer");
+        C.classList.remove("correct-answer");
+      }
 
-        if (correct == "c") {
-          C.classList.add("correct-answer");
-          C.classList.remove("wrong-answer");
-        } else {
-          C.classList.add("wrong-answer");
-          C.classList.remove("correct-answer");
-        }
+      if (correct == "d") {
+        D.classList.add("correct-answer");
+        D.classList.remove("wrong-answer");
+      } else {
+        D.classList.add("wrong-answer");
+        D.classList.remove("correct-answer");
+      }
+      return setTimeout(() => {
+        console.log("t");
+        exe();
+        count++;
+      }, 2000);
+    });
 
-        if (correct == "d") {
-          D.classList.add("correct-answer");
-          D.classList.remove("wrong-answer");
-        } else {
-          D.classList.add("wrong-answer");
-          D.classList.remove("correct-answer");
-        }
-      });
+    function exe() {
+      pergunta(count);
     }
-    pergunta();
+    pergunta(0);
   });
