@@ -4,16 +4,11 @@ const question = document.querySelector("#question");
 const answersBox = document.querySelector("#answers-box");
 const quizContainer = document.querySelector("#quiz-container");
 const scoreContainer = document.querySelector("#score-container");
+const answerTemplate = document.querySelector("#answers-box");
 const letters = ["a", "b", "c", "d"];
 let points = 0;
 let actualQuestion = 0;
 let count = 0;
-const answerTemplate = document.querySelector("#answers-box");
-
-let A = answerTemplate.querySelector("#a");
-let B = answerTemplate.querySelector("#b");
-let C = answerTemplate.querySelector("#c");
-let D = answerTemplate.querySelector("#d");
 
 fetch("http://localhost:3000/perguntas")
   .then((respostap) => {
@@ -32,6 +27,10 @@ fetch("http://localhost:3000/perguntas")
       });
     });
 
+    let A = answerTemplate.querySelector("#a");
+    let B = answerTemplate.querySelector("#b");
+    let C = answerTemplate.querySelector("#c");
+    let D = answerTemplate.querySelector("#d");
     function pergunta(i) {
       let questionArray = arrPerguntas[i];
       let pergunta = questionArray[1];
@@ -49,6 +48,7 @@ fetch("http://localhost:3000/perguntas")
       questionNumber.innerHTML = n;
 
       //seleciona alternativa
+
       function clearClass() {
         A.classList.remove("correct-answer");
         A.classList.remove("wrong-answer");
@@ -93,11 +93,19 @@ fetch("http://localhost:3000/perguntas")
       answerTextD.innerHTML = d;
 
       clearClass();
+
+      if (count === 0) {
+        count++;
+      }
     }
+    //Execulta as peguntas
+    pergunta(count);
+
     //Verifica qual alternativa esta correta e passa para proxima pergunta
     answerTemplate.addEventListener("click", function checkPer() {
       let questionArray = arrPerguntas[count];
       let correct = questionArray[6];
+
       if (correct == "a") {
         A.classList.add("correct-answer");
         A.classList.remove("wrong-answer");
@@ -129,8 +137,8 @@ fetch("http://localhost:3000/perguntas")
         D.classList.add("wrong-answer");
         D.classList.remove("correct-answer");
       }
-      return setTimeout(() => {
-        console.log("t");
+
+      setTimeout(() => {
         exe();
         count++;
       }, 2000);
@@ -138,6 +146,12 @@ fetch("http://localhost:3000/perguntas")
 
     function exe() {
       pergunta(count);
+      console.log(points);
     }
-    pergunta(0);
   });
+const buttons = answerTemplate.querySelectorAll("button");
+buttons.forEach(function (button) {
+  button.addEventListener("click", () => {
+    
+  });
+});
