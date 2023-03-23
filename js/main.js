@@ -144,14 +144,24 @@ fetch("http://localhost:3000/perguntas")
       }, 2000);
     });
 
+    //Execulta a proxima pergunta
     function exe() {
       pergunta(count);
-      console.log(points);
+      console.log(count);
+
+      if (count === 5) {
+        pontuacaoFinal();
+      }
+    }
+
+    //Mostra tela de pontuação final
+    function pontuacaoFinal() {
+      scoreContainer.classList.remove("hide");
+      quizContainer.classList.add("hide");
     }
   });
+
 const buttons = answerTemplate.querySelectorAll("button");
 buttons.forEach(function (button) {
-  button.addEventListener("click", () => {
-    
-  });
+  button.addEventListener("click", () => {});
 });
