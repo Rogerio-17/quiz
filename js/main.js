@@ -31,8 +31,8 @@ fetch("http://localhost:3000/perguntas")
     let B = answerTemplate.querySelector("#b");
     let C = answerTemplate.querySelector("#c");
     let D = answerTemplate.querySelector("#d");
-    function pergunta(i) {
-      let questionArray = arrPerguntas[i];
+    function pergunta() {
+      let questionArray = arrPerguntas[count];
       let pergunta = questionArray[1];
       let a = questionArray[2];
       let b = questionArray[3];
@@ -42,7 +42,7 @@ fetch("http://localhost:3000/perguntas")
       // Numero da pergunta e pergunta
       const questionText = quizContainer.querySelector("#question-text");
       const questionNumber = quizContainer.querySelector("#question-number");
-      let n = i + 1;
+      let n = count + 1;
 
       questionText.innerHTML = pergunta;
       questionNumber.innerHTML = n;
@@ -97,7 +97,26 @@ fetch("http://localhost:3000/perguntas")
       if (count === 0) {
         count++;
       }
+
+      // -------------------------------------------------
+
+      console.log(`Aqui esta correto ${points}`);
     }
+    // Contabiliza pontuação
+    const buttons = answerTemplate.querySelectorAll("button");
+    buttons.forEach(function (button) {
+      button.addEventListener("click", () => {
+        let questionArray = arrPerguntas[count];
+        let correct = questionArray[6];
+        const letraSelecionada =
+          button.querySelector(".btn-letter").textContent;
+
+        if (correct == letraSelecionada) {
+          points++;
+        }
+      });
+    });
+
     //Execulta as peguntas
     pergunta(count);
 
@@ -149,7 +168,8 @@ fetch("http://localhost:3000/perguntas")
       pergunta(count);
       console.log(count);
 
-      if (count === 5) {
+      // controla o numero de perguntas
+      if (count === 2) {
         pontuacaoFinal();
       }
     }
@@ -158,10 +178,16 @@ fetch("http://localhost:3000/perguntas")
     function pontuacaoFinal() {
       scoreContainer.classList.remove("hide");
       quizContainer.classList.add("hide");
+      dadosQuiz();
+    }
+
+    function dadosQuiz() {
+      console.log(scoreContainer);
+      let porcentagem = scoreContainer.querySelector("#valorPorcento");
+      let questionQtd = scoreContainer.querySelector("#correct-answers");
+      let valor = (points / 10) * 100;
+
+      porcentagem.innerHTML = valor;
+      questionQtd.innerHTML = points;
     }
   });
-
-const buttons = answerTemplate.querySelectorAll("button");
-buttons.forEach(function (button) {
-  button.addEventListener("click", () => {});
-});
