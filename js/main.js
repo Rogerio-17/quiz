@@ -8,7 +8,7 @@ const answerTemplate = document.querySelector("#answers-box");
 const letters = ["a", "b", "c", "d"];
 let points = 0;
 let actualQuestion = 0;
-let count = 0;
+let numPer = 1;
 
 fetch("http://localhost:3000/perguntas")
   .then((respostap) => {
@@ -16,6 +16,7 @@ fetch("http://localhost:3000/perguntas")
   })
   .then((dados) => {
     let dado = dados;
+    let count = Math.floor(Math.random() * dado.length);
 
     let dadosPergunta = dado.map((item) => {
       return item;
@@ -42,10 +43,9 @@ fetch("http://localhost:3000/perguntas")
       // Numero da pergunta e pergunta
       const questionText = quizContainer.querySelector("#question-text");
       const questionNumber = quizContainer.querySelector("#question-number");
-      let n = count + 1;
 
       questionText.innerHTML = pergunta;
-      questionNumber.innerHTML = n;
+      questionNumber.innerHTML = numPer;
 
       //seleciona alternativa
 
@@ -94,13 +94,9 @@ fetch("http://localhost:3000/perguntas")
 
       clearClass();
 
-      if (count === 0) {
-        count++;
-      }
+      count = Math.floor(Math.random() * dado.length);
 
       // -------------------------------------------------
-
-      console.log(`Aqui esta correto ${points}`);
     }
     // Contabiliza pontuação
     const buttons = answerTemplate.querySelectorAll("button");
@@ -166,10 +162,11 @@ fetch("http://localhost:3000/perguntas")
     //Execulta a proxima pergunta
     function exe() {
       pergunta(count);
-      console.log(count);
 
       // controla o numero de perguntas
-      if (count === 2) {
+
+      console.log(numPer);
+      if (numPer === 2) {
         pontuacaoFinal();
       }
     }
