@@ -8,7 +8,7 @@ const answerTemplate = document.querySelector("#answers-box");
 const letters = ["a", "b", "c", "d"];
 let points = 0;
 let actualQuestion = 0;
-let numPer = 1;
+let numPer = 0;
 
 fetch("http://localhost:3000/perguntas")
   .then((respostap) => {
@@ -16,7 +16,10 @@ fetch("http://localhost:3000/perguntas")
   })
   .then((dados) => {
     let dado = dados;
-    let count = Math.floor(Math.random() * dado.length);
+    let count = 0;
+    if (count == 0) {
+      count = Math.floor(Math.random() * dado.length);
+    }
 
     let dadosPergunta = dado.map((item) => {
       return item;
@@ -40,12 +43,14 @@ fetch("http://localhost:3000/perguntas")
       let c = questionArray[4];
       let d = questionArray[5];
 
+      console.log(pergunta);
+
       // Numero da pergunta e pergunta
       const questionText = quizContainer.querySelector("#question-text");
       const questionNumber = quizContainer.querySelector("#question-number");
 
       questionText.innerHTML = pergunta;
-      questionNumber.innerHTML = numPer;
+      questionNumber.innerHTML = numPer + 1;
 
       //seleciona alternativa
 
@@ -95,6 +100,10 @@ fetch("http://localhost:3000/perguntas")
       clearClass();
 
       count = Math.floor(Math.random() * dado.length);
+      if (count === count) {
+        count;
+      }
+      numPer++;
 
       // -------------------------------------------------
     }
@@ -114,13 +123,13 @@ fetch("http://localhost:3000/perguntas")
     });
 
     //Execulta as peguntas
-    pergunta(count);
 
     //Verifica qual alternativa esta correta e passa para proxima pergunta
     answerTemplate.addEventListener("click", function checkPer() {
       let questionArray = arrPerguntas[count];
       let correct = questionArray[6];
 
+      console.log(questionArray);
       if (correct == "a") {
         A.classList.add("correct-answer");
         A.classList.remove("wrong-answer");
@@ -159,6 +168,7 @@ fetch("http://localhost:3000/perguntas")
       }, 2000);
     });
 
+    pergunta(count);
     //Execulta a proxima pergunta
     function exe() {
       pergunta(count);
@@ -166,7 +176,7 @@ fetch("http://localhost:3000/perguntas")
       // controla o numero de perguntas
 
       console.log(numPer);
-      if (numPer === 2) {
+      if (numPer >= 5) {
         pontuacaoFinal();
       }
     }
