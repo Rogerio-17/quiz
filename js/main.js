@@ -100,9 +100,8 @@ fetch("http://localhost:3000/perguntas")
       clearClass();
 
       count = Math.floor(Math.random() * dado.length);
-      if (count === count) {
-        count;
-      }
+      count++;
+
       numPer++;
 
       // -------------------------------------------------
